@@ -4,19 +4,28 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+document.body.style.margin = 0;
+document.body.style.overflow = 'hidden';
+
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement); // Add the renderer to the body of the HTML document
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+camera.position.x = 15;
 
 // Load the model
 const loader = new GLTFLoader();
+
 // Resolve the model path relative to this module file.
+const tv_group = new THREE.Group();
+scene.add(tv_group);
+
 const modelUrl = new URL('./source/TV/TV.glb', import.meta.url).href;
 loader.load(modelUrl, function(gltf) {
-  scene.add(gltf.scene);
+  tv_group.add(gltf.scene);
 });
 
 const controls = new OrbitControls(camera, renderer.domElement);

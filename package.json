@@ -1,13 +1,9 @@
 {
   "name": "tv",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
   "main": "script.js",
   "scripts": {
-    "start": "npx serve ."
+    "start": "npx serve . --single"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "type": "module"
 }
