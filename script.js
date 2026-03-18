@@ -13,7 +13,9 @@ camera.position.z = 5;
 
 // Load the model
 const loader = new GLTFLoader();
-loader.load('tv.glb', function(gltf) {
+// Resolve the model path relative to this module file.
+const modelUrl = new URL('./source/TV/TV.glb', import.meta.url).href;
+loader.load(modelUrl, function(gltf) {
   scene.add(gltf.scene);
 });
 
