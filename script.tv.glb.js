@@ -92,11 +92,14 @@ function applyTexturesToScene(root, textures) {
 
   // If we didn't find any likely material names, apply a reasonable default to any PBR material.
   if (matched === 0) {
+    const materialNames = new Set();
+
     root.traverse((obj) => {
       if (!obj.isMesh) return;
       const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
       for (const mat of materials) {
         if (!mat) continue;
+        materialNames.add(mat.name || '(unnamed)');
 
         const looksPBR =
           ('metalnessMap' in mat) ||
@@ -112,6 +115,10 @@ function applyTexturesToScene(root, textures) {
         if ('emissiveIntensity' in mat) mat.emissiveIntensity = 1.5;
         mat.needsUpdate = true;
       }
+    });
+
+    console.log('No material-name matches; applied default textures to PBR-like materials.', {
+      materialNames: Array.from(materialNames).slice(0, 50),
     });
   }
 }
